@@ -1,0 +1,38 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Original files and user-specific files
+chatbot-2.py
+CLAUDE.md
+
+# Chat session files - save only the default prompts
+chatbot_sessions/
+chatbot_prompts/*
+!chatbot_prompts/code_guru.json
+
+# Logs
+*.log

@@ -1,0 +1,7 @@
+---
+description: Pydantic usage in code
+globs: *.py
+---
+
+# Your rule content
+Use pydantic
