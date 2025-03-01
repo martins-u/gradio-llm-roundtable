@@ -1,6 +1,23 @@
-# AI Chatbot
+# Gradio based LLM roundtable discussion interface
 
-A modern chat interface for multiple LLM providers including Anthropic, OpenAI, and OpenRouter. Includes support for round-table discussions with multiple models.
+Made for own amusement and productivity, but maybe it will be useful for someone else too.
+
+Introduce some subject and let LLMs discuss it among themselves.
+Selected chairman LLM will summarize the discussion in each round.
+User might add some additional context to the discussion, keep conversation context and let it continue in new round.
+
+Token usage is not high, since there is no aggressive agentic prompting in background.
+
+At the moment some currently popular reasoning models are included.
+
+Also there is enhanced privacy - actual conversations are stored locally in `chatbot_sessions` folder as json files.
+One can load those sessions and continue the discussion later or view them in the UI.
+
+Pop in API keys, select LLMs and enjoy!
+
+There are however bugs and rough edges, UI needs to be simplified and made in more user-friendly way.
+
+Also tested Claude Code Beta here to tidy up the code.
 
 ## Features
 
