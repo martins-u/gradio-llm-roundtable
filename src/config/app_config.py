@@ -26,23 +26,38 @@ class Config:
         )
         
         from src.models.providers import Provider
-        config.models = {
-            Provider.ANTHROPIC: ["claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022", "claude-3-opus-20240229"],
-            Provider.OPENROUTER: ["deepseek/deepseek-r1"],
-            Provider.OPENAI: ["gpt-4o", "o1-preview", "gpt-4.5-preview"]
-        }
+        config.models = {}
+        
+        # Only add models for providers with valid API keys
+        if config.anthropic_api_key:
+            config.models[Provider.ANTHROPIC] = ["claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022", "claude-3-opus-20240229"]
+        
+        if config.openrouter_api_key:
+            config.models[Provider.OPENROUTER] = ["deepseek/deepseek-r1"]
+        
+        if config.openai_api_key:
+            config.models[Provider.OPENAI] = ["gpt-4o", "o1-preview", "gpt-4.5-preview"]
         
         return config
     
     @classmethod
     def validate_config(cls, config: 'Config') -> bool:
-        if not config.anthropic_api_key:
-            logger.error("ANTHROPIC_API_KEY environment variable is not set")
-            return False
-        if not config.openrouter_api_key:
-            logger.error("OPENROUTER_API_KEY environment variable is not set")
-            return False
-        if not config.openai_api_key:
-            logger.error("OPENAI_API_KEY environment variable is not set")
+        api_key_count = 0
+        if config.anthropic_api_key:
+            api_key_count += 1
+        else:
+            logger.info("ANTHROPIC_API_KEY environment variable is not set")
+        if config.openrouter_api_key:
+            api_key_count += 1
+        else:
+            logger.info("OPENROUTER_API_KEY environment variable is not set")
+        if config.openai_api_key:
+            api_key_count += 1
+        else:
+            logger.info("OPENAI_API_KEY environment variable is not set")
+
+        if api_key_count == 0:
+            logger.error("No API keys are set")
             return False
         return True
+        
