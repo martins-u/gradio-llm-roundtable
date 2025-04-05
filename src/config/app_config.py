@@ -30,13 +30,13 @@ class Config:
         
         # Only add models for providers with valid API keys
         if config.anthropic_api_key:
-            config.models[Provider.ANTHROPIC] = ["claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022", "claude-3-opus-20240229"]
+            config.models[Provider.ANTHROPIC] = ["claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022"]
         
         if config.openrouter_api_key:
             config.models[Provider.OPENROUTER] = ["deepseek/deepseek-r1"]
         
         if config.openai_api_key:
-            config.models[Provider.OPENAI] = ["gpt-4o", "o1-preview", "gpt-4.5-preview"]
+            config.models[Provider.OPENAI] = ["gpt-4o", "o1-preview", "gpt-4.5-preview", "o1-pro-2025-03-19"]
         
         return config
     

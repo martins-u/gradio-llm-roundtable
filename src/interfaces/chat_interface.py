@@ -282,7 +282,7 @@ class ChatInterface:
                 load_prompt_button = gr.Button("Load Selected Prompt")
                 prompt_status = gr.Textbox(label="Prompt Status")
 
-            chatbox = gr.Chatbot(label="Chat")
+            chatbox = gr.Chatbot(label="Chat", resizeable = True)
             msg_input = gr.Textbox(
                 label="Your Message",
                 placeholder="Type your message here...",

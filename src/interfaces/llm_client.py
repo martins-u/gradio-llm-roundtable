@@ -207,6 +207,44 @@ class LLMClientManager:
                             [m.model_dump() for m in messages],
                     store=False
                 )
+                return completion.choices[0].message.content or ""
+            elif model == "o1-pro-2025-03-19":
+                formatted_messages = []
+                # Add system prompt as first user message
+                formatted_messages.append({
+                    "role": "user", 
+                    "content": [{"type": "input_text", "text": system_prompt}]
+                })
+                
+                # Format the rest of the messages properly
+                for m in messages:
+                    formatted_messages.append({
+                        "role": m.role,
+                        "content": [{"type": "input_text", "text": m.content}]
+                    })
+                
+                response = self.openai_client.responses.create(
+                    model=model,
+                    input=formatted_messages,
+                    text={
+                        "format": {
+                            "type": "text"
+                        }
+                    },
+                    reasoning={
+                        "effort": "high"
+                    },
+                    store=False
+                )
+                
+                # Extract text from the o1-pro response structure
+                if response.output and len(response.output) > 0:
+                    for output_item in response.output:
+                        if hasattr(output_item, 'content') and output_item.content:
+                            for content_item in output_item.content:
+                                if hasattr(content_item, 'text'):
+                                    return content_item.text
+                return ""
             else:
                 completion = self.openai_client.chat.completions.create(
                     model=model,
@@ -215,6 +253,6 @@ class LLMClientManager:
                     temperature=temperature,
                     store=False
                 )
-            return completion.choices[0].message.content or ""
+                return completion.choices[0].message.content or ""
         except Exception as e:
             raise APIError(message=str(e))
